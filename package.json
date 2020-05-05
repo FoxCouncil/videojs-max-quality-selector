@@ -1,6 +1,6 @@
 {
   "name": "videojs-max-quality-selector",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A Videojs Plugin to help you list out resolutions and bit-rates from Live, Adaptive and Progressive streams.",
   "main": "dist/videojs-max-quality-selector.cjs.js",
   "module": "dist/videojs-max-quality-selector.es.js",

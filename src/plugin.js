@@ -5,7 +5,13 @@ import {version as VERSION} from '../package.json';
 const Plugin = videojs.getPlugin('plugin');
 
 // Default options for the plugin.
-const defaults = {};
+const defaults = {
+  index: -1,
+  filterDuplicates: true,
+  showBitrates: false,
+  sortEnabled: true,
+  sort: 0
+};
 
 /**
  * An advanced Video.js plugin. For more information on the API
@@ -31,46 +37,107 @@ class MaxQualitySelector extends Plugin {
     // the parent class will add player under this.player
     super(player);
 
+    this.defaults = defaults;
     this.options = videojs.mergeOptions(defaults, options);
 
     this.qualityLevels = [];
     this.qualityLevelsIdx = 0;
+    this.qualityLevelFilter = [];
 
     this.player.on('loadstart', this.handleMediaChange.bind(this));
     this.player.on('loadeddata', this.handleMediaChangeDone.bind(this));
-    this.player.qualityLevels().on('addqualitylevel', this.handleQualityLevel.bind(this));
-    this.player.qualityLevels().on('change', this.handleChange.bind(this));
 
-    this.button = player.controlBar.addChild('QualityButton', {}, player.controlBar.children().length - 1);
+    if (this.player.qualityLevels !== undefined) {
+      this.qlInternal = this.player.qualityLevels();
+
+      this.qlInternal.on('addqualitylevel', this.handleQualityLevel.bind(this));
+      this.qlInternal.on('change', this.handleChange.bind(this));
+
+      this.button = player.controlBar.addChild('QualityButton', { parent: this }, player.controlBar.children().length - 1);
+    }
 
     this.player.ready(() => {
       this.player.addClass('vjs-max-quality-selector');
     });
   }
 
-  handleMediaChange(e) {
-    this.qualityLevels = [];
-    this.qualityLevelsIdx = 0;
-  }
+  update() {
+    const self = this;
+    const selQuality = this.qualityLevels.find(function(level) {
+      return level.idx === self.selectedIndex;
+    });
 
-  handleMediaChangeDone(e) {
-    this.button.items = this.qualityLevels;
+    let displayQualityName = this.getQualityDisplayString(selQuality);
+
+    if (displayQualityName === '') {
+      displayQualityName = 'UNKNOWN';
+    }
+
+    this.button.$('.vjs-icon-placeholder').innerHTML = displayQualityName;
+
+    let qualityItems = this.qualityLevels;
+
+    if (this.options.sortEnabled) {
+      if (this.options.sort === 0) {
+        qualityItems = this.qualityLevels.sort(function(a, b) {
+          return b.uniqueId - a.uniqueId;
+        });
+      } else {
+        qualityItems = this.qualityLevels.sort(function(a, b) {
+          return a.uniqueId - b.uniqueId;
+        });
+      }
+    } else {
+      qualityItems = this.qualityLevels.sort(function(a, b) {
+        return a.idx - b.idx;
+      });
+    }
+
+    this.button.items = qualityItems;
     this.button.update();
   }
 
-  handleChange(e) {
-    const selQuality = this.qualityLevels.find(function(level) {
-      return level.idx === e.selectedIndex;
-    });
+  changeLevel(levelIndex) {
+    this.qlInternal.selectedIndex_ = levelIndex;
+    this.qlInternal.trigger({ type: 'change', selectedIndex: levelIndex });
+  }
 
-    this.button.$('.vjs-icon-placeholder').innerHTML = selQuality.dimensionMarketingName + '<sup>' + selQuality.dimensionEnglishName + '</sup> (' + selQuality.bitrateName + ')';
+  handleMediaChange(e) {
+    this.qualityLevels = [];
+    this.qualityLevelsIdx = 0;
+    this.qualityLevelFilter = [];
+  }
+
+  handleMediaChangeDone(e) {
+    this.update();
+  }
+
+  handleChange(e) {
+    if (this.selectedIndex !== e.selectedIndex) {
+      this.qlInternal.levels_.forEach(function(obj, idx) {
+        obj.enabled = idx === e.selectedIndex;
+      });
+    }
+    this.selectedIndex = e.selectedIndex;
+    this.update();
   }
 
   handleQualityLevel(e) {
     const ql = e.qualityLevel;
+    const qlUniqueId = ql.width + ql.height + ql.bitrate;
+    let isUnique = true;
+
+    if (this.qualityLevelFilter.includes(qlUniqueId)) {
+      isUnique = false;
+    } else {
+      this.qualityLevelFilter.push(qlUniqueId);
+    }
+
     const quality = {
       idx: this.qualityLevelsIdx++,
       id: ql.id,
+      uniqueId: qlUniqueId,
+      isUnique,
       label: ql.label,
       width: ql.width,
       height: ql.height,
@@ -87,17 +154,21 @@ class MaxQualitySelector extends Plugin {
   getDimensionEnglishName(width, height) {
     switch (height) {
     case 240:
+    case 252:
       return 'VLQ';
     case 360:
       return 'LQ';
     case 480:
+    case 486:
       return 'SD';
     case 720:
       return 'HD';
     case 1080:
-      return 'FullHD';
+      return 'FHD';
+    case 1440:
+      return 'QHD';
     case 2160:
-      return 'UltraHD';
+      return 'UHD';
     }
     return 'N/A';
   }
@@ -122,6 +193,19 @@ class MaxQualitySelector extends Plugin {
     // output = Math.ceil(output / 10) * 10;
 
     return output + byteUnits[i];
+  }
+
+  getQualityDisplayString(qualityLevel) {
+    if (!qualityLevel) {
+      return '';
+    }
+
+    let displayString = qualityLevel.dimensionMarketingName + '<sup>' + qualityLevel.dimensionEnglishName + '</sup>';
+
+    if (this.options.showBitrates) {
+      displayString += ' (' + qualityLevel.bitrateName + ')';
+    }
+    return displayString;
   }
 }
 

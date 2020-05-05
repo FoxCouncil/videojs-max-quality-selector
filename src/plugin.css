@@ -26,17 +26,14 @@
     & .vjs-max-quality-selector-button {
       width: auto;
 
-      & .vjs-menu {
-        width: 15em;
+      & sup {
+        text-transform: uppercase;
+        font-weight: bold;
+        color: red;
+      }
 
-        & .vjs-menu-content {
-          background-color: rgba(43, 51, 63, 0.9);
-        }
-
-        & sup {
-          text-transform: uppercase;
-          color: red;
-        }
+      & .vjs-menu-content {
+        background-color: rgba(43, 51, 63, 0.9);
       }
     }
 

@@ -35,6 +35,15 @@
         animation: blink 2s infinite;
       }
 
+      .video-js {
+        width: 100%;
+        height: 50vh !important;
+      }
+
+      .video-js .vjs-control-bar {
+        opacity: 1 !important;
+      }
+
       .nav {
         border-bottom: 1px solid gray;
         margin: 0;
@@ -66,6 +75,34 @@
 
       .nav ul li a:hover {
         color: blue;
+      }
+
+      .settings {
+        border-top: 1px solid gray;
+        padding: 5px;
+      }
+
+      .settings .options-button {
+        border-width: 1px;
+        border-style: solid;
+        border-color: white;
+        color: white;
+        background-color: black;
+        padding: 5px 10px;
+      }
+
+      .settings .options-button.bool {
+        width: 50px;
+      }
+
+      .settings .options-button.true {
+        color: lightgreen;
+        border-color: lightgreen;
+      }
+
+      .settings .options-button.false {
+        color: red;
+        border-color: red;
       }
 
       .sources {
@@ -123,7 +160,19 @@
     <div style="clear: both;"></div>
   </h5>
 
-  <video id="videojs-max-quality-selector-player" crossorigin="anonymous" class="video-js vjs-default-skin vjs-16-9" controls autoplay></video>
+  <video id="videojs-max-quality-selector-player" crossorigin="anonymous" class="video-js vjs-default-skin" controls autoplay></video>
+
+  <div class="settings">
+    <table id="control-list" width="100%">
+      <tr>
+        <td>sortEnabled: <button class="options-button bool true" data-type="bool" data-name="sortEnabled">true</button></td>
+        <td>filterDuplicates: <button class="options-button bool true" data-type="bool" data-name="filterDuplicates">true</button></td>
+        <td>showBitrates: <button class="options-button bool false"  data-type="bool" data-name="showBitrates">false</button></td>
+
+        <td width="50%"><pre id="output">{}</pre></td>
+      </tr>
+    </table>
+  </div>
 
   <div class="sources">
     <table id="source-list" width="100%">
@@ -170,7 +219,7 @@
           { "name": "HLS Playlist", "sources": [ { "src": "http://playertest.longtailvideo.com/adaptive/captions/playlist.m3u8", "type": "application/vnd.apple.mpegurl" } ] },
           { "name": "HLS Livestream Metadata", "sources": [ { "src": "http://playertest.longtailvideo.com/adaptive/wowzaid3/playlist.m3u8", "type": "application/vnd.apple.mpegurl" } ] },
           { "name": "HLS Tears of Steel 4k", "sources": [ { "src": "http://content.jwplatform.com/manifests/vM7nH0Kl.m3u8", "type": "application/vnd.apple.mpegurl" } ] },
-          { "name": "HLS Artbeats", "sources": [ { "src": "https://wnbclive-f.akamaihd.net/i/wnbca1_1@13992/master.m3u8", "type": "application/vnd.apple.mpegurl" } ] }
+          { "name": "HLS Maxwolf", "sources": [ { "src": "http://bigmaxwolf-cact.streaming.media.azure.net/bd250dea-16d4-4d84-9ffe-3c29988fc328/SmellMeat_4k.ism/manifest(format=m3u8-aapl-v3)", "type": "application/vnd.apple.mpegurl" } ] }
         ],
         "live": [
           { "name": "HLS NASA", "sources": [ { "src": "http://iphone-streaming.ustream.tv/uhls/6540154/streams/live/iphone/playlist.m3u8", "type": "application/vnd.apple.mpegurl" } ] },
@@ -191,12 +240,29 @@
   </script>
   <script>
     function mouseEffect(s, e) {
-      var header = document.getElementById('source-list').tHead.rows[0].cells[e.cellIndex];
+      let header = document.getElementById('source-list').tHead.rows[0].cells[e.cellIndex];
       if (s) { header.classList.add('hover'); } else { header.classList.remove('hover'); }
     }
 
+    function handleOptions(event) {
+      let type = this.dataset['type'];
+      let name = this.dataset['name'];
+
+      if (type === 'bool') {
+        let currentValue = this.innerText === 'true' ? true : false;
+        let newValue = !currentValue;
+        this.classList.remove(currentValue.toString());
+        this.classList.add(newValue.toString());
+        this.innerText = newValue.toString();
+        window.maxQualitySelector.options[name] = newValue;
+        window.maxQualitySelector.update();
+      } else {
+        console.log(type, name);
+      }
+    }
+
     function changeSource() {
-      var selectedEl = undefined;
+      let selectedEl = undefined;
       if (this === window) {
         window.tester.index = 0;
         selectedEl = document.querySelector('[data-id="0"]');
@@ -215,8 +281,8 @@
 
       selectedEl.classList.add('active');
 
-      var li = window.tester.sourcesEl[window.tester.index];
-      var cellIdx = li.parentElement.parentElement.cellIndex;
+      let li = window.tester.sourcesEl[window.tester.index];
+      let cellIdx = li.parentElement.parentElement.cellIndex;
 
       document.getElementById('source-list').tHead.rows[0].cells[cellIdx].classList.add('active');
 
@@ -224,8 +290,8 @@
     }
 
     function createSource(source) {
-      var sourceId = window.tester.sources.length;
-      var newEl = videojs.dom.createEl('li');
+      let sourceId = window.tester.sources.length;
+      let newEl = videojs.dom.createEl('li');
       newEl.appendChild(videojs.dom.createEl('a', { onclick: changeSource }, { 'href': '#', 'class': 'sourceButton', 'data-id': sourceId, 'data-urls': JSON.stringify(source.sources) }, source.name));
       window.tester.sources.push(source);
       window.tester.sourcesEl.push(newEl);
@@ -250,20 +316,24 @@
 
       // Progressive
       urls.progressive.forEach(function(source, index) {
-        var newEl = createSource(source);
+        let newEl = createSource(source);
         progressiveEl.appendChild(newEl);
       });
 
       // Adaptive
       urls.adaptive.forEach(function(source, index) {
-        var newEl = createSource(source);
+        let newEl = createSource(source);
         adaptiveEl.appendChild(newEl);
       });
 
       // Live
       urls.live.forEach(function(source, index) {
-        var newEl = createSource(source);
+        let newEl = createSource(source);
         liveEl.appendChild(newEl);
+      });
+
+      document.querySelectorAll('.options-button').forEach(function(obj, idx) {
+        obj.addEventListener('click', handleOptions.bind(obj));
       });
     }
 
