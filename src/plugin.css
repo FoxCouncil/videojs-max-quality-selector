@@ -32,6 +32,19 @@
         color: red;
       }
 
+      & .vjs-menu li {
+        text-transform: none;
+      }
+
+      & .vjs-menu li.vjs-selected {
+        font-weight: bold;
+        color: black;
+
+        & sup {
+          text-shadow: 0px 1px black;
+        }
+      }
+
       & .vjs-menu-content {
         background-color: rgba(43, 51, 63, 0.9);
       }

@@ -1,0 +1,162 @@
+@keyframes blink {
+  0%   { opacity:1; }
+  50%  { opacity:0.5; }
+  100% { opacity:1; }
+}
+
+body {
+  background: black;
+  color: grey;
+  margin: 0;
+  padding: 0;
+
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
+}
+
+.vjs-live-display { margin-left: 10px; }
+.vjs-live-display:before {
+  content: '🔴';
+  display: inline-block;
+  margin-right: 3px;
+  animation: blink 2s infinite;
+}
+
+.video-js {
+  width: 100%;
+  height: 50vh !important;
+}
+
+.video-js .vjs-control-bar {
+  opacity: 1 !important;
+}
+
+.nav {
+  border-bottom: 1px solid gray;
+  margin: 0;
+  padding: 0;
+}
+
+.nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nav ul li {
+  float: left;
+}
+
+.nav ul li a {
+  display: block;
+  padding: 10px 15px;
+  border-right: 1px solid grey;
+  color: lightblue;
+  text-decoration:  none;
+  transition: 0.5s;
+}
+
+.nav ul li a.text {
+  color: white;
+}
+
+.nav ul li a:hover {
+  color: #77F;
+}
+
+.settings {
+  border-top: 1px solid gray;
+  padding: 5px;
+  display: flex;
+}
+
+.settings td {
+  vertical-align: top;
+}
+
+.settings td.option {
+  text-align: right;
+
+  border-right: 1px solid #333;
+  padding-right: 5px;
+  transition: 0.9s;
+}
+
+.settings td.option:hover {
+  background-color: #123;
+}
+
+.settings #output {
+  width: 50%;
+  background-color: #111;
+  padding: 7px;
+  margin: 0;
+}
+
+.settings .options-button {
+  border-width: 1px;
+  border-style: solid;
+  border-color: white;
+  color: white;
+  background-color: black;
+  padding: 5px 10px;
+}
+
+.settings .options-button.bool {
+  width: 50px;
+}
+
+.settings .options-button.enum {
+    min-width: 75px;
+}
+
+.settings .options-button.true {
+  color: lightgreen;
+  border-color: lightgreen;
+}
+
+.settings .options-button.false {
+  color: red;
+  border-color: red;
+}
+
+.sources {
+  border-top: 1px solid gray;
+}
+
+#source-list th {
+  text-align: center;
+  border-bottom: 1px solid gray;
+  transition: 0.5s;
+}
+
+#source-list th.hover {
+  box-shadow: inset 0 0 30px #00f, 0 0 30px #00f;
+}
+
+#source-list th.active {
+  box-shadow: inset 0 0 30px rgb(226, 51, 51), 0 0 30px rgb(226, 51, 51);
+}
+
+#source-list td {
+  vertical-align: top;
+}
+
+#source-list td a {
+  color: rgb(90, 90, 190);
+  transition: 0.5s;
+  text-decoration: none;
+}
+
+#source-list td a:hover {
+  color:rgb(58, 58, 248);
+}
+
+#source-list td a.sourceButton.active {
+  color:rgb(226, 51, 51);
+}
+
+#source-list td a.sourceButton.active:before {
+  content: '▶';
+  display: inline-block;
+  margin-right: 5px;
+}

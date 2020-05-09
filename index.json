@@ -1,0 +1,40 @@
+{
+    "urls": {
+        "progressive": [
+          {
+            "name": "videojs (MP4, webM)",
+            "sources": [
+              { "src": "http://vjs.zencdn.net/v/oceans.mp4", "type": "video/mp4" },
+              { "src": "http://vjs.zencdn.net/v/oceans.webm","type": "video/webm" }
+            ]
+          }
+        ],
+        "adaptive": [
+          { "name": "HLS Skate Phantom 4k", "sources": [ { "src": "http://sample.vodobox.com/skate_phantom_flex_4k/skate_phantom_flex_4k.m3u8", "type": "application/vnd.apple.mpegurl" } ] },
+          { "name": "HLS Pipe Dream Tahiti", "sources": [ { "src": "http://sample.vodobox.com/pipe_dream_tahiti/pipe_dream_tahiti.m3u8", "type": "application/vnd.apple.mpegurl" } ] },
+          { "name": "HLS We Are Blood 4k", "sources": [ { "src": "http://sample.vodobox.com/we_are_blood_4k/we_are_blood_4k.m3u8", "type": "application/vnd.apple.mpegurl" } ] },
+          { "name": "HLS Caminande 2k", "sources": [ { "src": "http://sample.vodobox.com/caminandes_3_2k/caminandes_3_2k.m3u8", "type": "application/vnd.apple.mpegurl" } ] },
+          { "name": "HLS Caminandes 4k", "sources": [ { "src": "http://sample.vodobox.com/caminandes_1_4k/caminandes_1_4k.m3u8", "type": "application/vnd.apple.mpegurl" } ] },
+          { "name": "HLS Big Buck Bunny", "sources": [ { "src": "http://sample.vodobox.com/big_buck_bunny_4k/big_buck_bunny_4k.m3u8", "type": "application/vnd.apple.mpegurl" } ] },
+          { "name": "HLS Oceans", "sources": [ { "src": "http://playertest.longtailvideo.com/adaptive/oceans_aes/oceans_aes.m3u8", "type": "application/vnd.apple.mpegurl" } ] },
+          { "name": "HLS Playlist", "sources": [ { "src": "http://playertest.longtailvideo.com/adaptive/captions/playlist.m3u8", "type": "application/vnd.apple.mpegurl" } ] },
+          { "name": "HLS Livestream Metadata", "sources": [ { "src": "http://playertest.longtailvideo.com/adaptive/wowzaid3/playlist.m3u8", "type": "application/vnd.apple.mpegurl" } ] },
+          { "name": "HLS Tears of Steel 4k", "sources": [ { "src": "http://content.jwplatform.com/manifests/vM7nH0Kl.m3u8", "type": "application/vnd.apple.mpegurl" } ] },
+          { "name": "HLS Maxwolf", "sources": [ { "src": "http://bigmaxwolf-cact.streaming.media.azure.net/bd250dea-16d4-4d84-9ffe-3c29988fc328/SmellMeat_4k.ism/manifest(format=m3u8-aapl-v3)", "type": "application/vnd.apple.mpegurl" } ] }
+        ],
+        "live": [
+          { "name": "HLS NASA", "sources": [ { "src": "http://iphone-streaming.ustream.tv/uhls/6540154/streams/live/iphone/playlist.m3u8", "type": "application/vnd.apple.mpegurl" } ] },
+          { "name": "HLS NASA Media", "sources": [ { "src": "http://iphone-streaming.ustream.tv/uhls/10414700/streams/live/iphone/playlist.m3u8", "type": "application/vnd.apple.mpegurl" } ] },
+          { "name": "HLS Canadian Shopping Channel", "sources": [ { "src": "http://tscstreaming-lh.akamaihd.net/i/TSCLiveStreaming_1@91031/master.m3u8", "type": "application/vnd.apple.mpegurl" } ] },
+          { "name": "HLS C-SPAN", "sources": [ { "src": "https://skystreams-lh.akamaihd.net/i/SkyC1_1@500806/master.m3u8", "type": "application/vnd.apple.mpegurl" } ] },
+          { "name": "HLS Bloomberg US", "sources": [ { "src": "https://liveproduseast.global.ssl.fastly.net/btv/desktop/us_live.m3u8", "type": "application/vnd.apple.mpegurl" } ] },
+          { "name": "HLS TWiT", "sources": [ { "src": "http://iphone-streaming.ustream.tv/uhls/1524/streams/live/iphone/playlist.m3u8", "type": "application/vnd.apple.mpegurl" } ] },
+          { "name": "HLS CBS News", "sources": [ { "src": "https://cbsn-us-cedexis.cbsnstream.cbsnews.com/out/v1/55a8648e8f134e82a470f83d562deeca/master.m3u8?iu=/8264/vaw-can/desktop/cbsnews", "type": "application/vnd.apple.mpegurl" } ] },
+          { "name": "HLS ABC News", "sources": [ { "src": "https://content.uplynk.com/channel/3324f2467c414329b3b0cc5cd987b6be.m3u8", "type": "application/vnd.apple.mpegurl" } ] },
+          { "name": "HLS RT", "sources": [ { "src": "https://rt-news.secure.footprint.net/1103.m3u8", "type": "application/vnd.apple.mpegurl" } ] },
+          { "name": "HLS RT America", "sources": [ { "src": "https://rt-usa.secure.footprint.net/1105.m3u8", "type": "application/vnd.apple.mpegurl" } ] },
+          { "name": "HLS CGTN", "sources": [ { "src": "https://news.cgtn.com/resource/live/english/cgtn-news.m3u8", "type": "application/vnd.apple.mpegurl" } ] },
+          { "name": "HLS NDTV", "sources": [ { "src": "https://ndtv24x7elemarchana.akamaized.net/hls/live/2003678/ndtv24x7/ndtv24x7master.m3u8", "type": "application/vnd.apple.mpegurl" } ] }
+        ]
+    }
+  }

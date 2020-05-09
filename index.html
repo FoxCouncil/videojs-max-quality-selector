@@ -11,151 +11,17 @@
     <link href="node_modules/video.js/dist/video-js.css" rel="stylesheet">
     <link href="dist/videojs-max-quality-selector.css" rel="stylesheet">
 
-    <style>
-      @keyframes blink {
-        0%   { opacity:1; }
-        50%  { opacity:0.5; }
-        100% { opacity:1; }
-      }
-
-      body {
-        background: black;
-        color: grey;
-        margin: 0;
-        padding: 0;
-
-        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
-      }
-
-      .vjs-live-display { margin-left: 10px; }
-      .vjs-live-display:before {
-        content: '🔴';
-        display: inline-block;
-        margin-right: 3px;
-        animation: blink 2s infinite;
-      }
-
-      .video-js {
-        width: 100%;
-        height: 50vh !important;
-      }
-
-      .video-js .vjs-control-bar {
-        opacity: 1 !important;
-      }
-
-      .nav {
-        border-bottom: 1px solid gray;
-        margin: 0;
-        padding: 0;
-      }
-
-      .nav ul {
-        list-style: none;
-        margin: 0;
-        padding: 0;
-      }
-
-      .nav ul li {
-        float: left;
-      }
-
-      .nav ul li a,
-      .nav ul li div {
-        display: block;
-        padding: 10px 15px;
-        border-right: 1px solid grey;
-        color: lightblue;
-        text-decoration:  none;
-      }
-
-      .nav ul li div {
-        color: white;
-      }
-
-      .nav ul li a:hover {
-        color: blue;
-      }
-
-      .settings {
-        border-top: 1px solid gray;
-        padding: 5px;
-      }
-
-      .settings .options-button {
-        border-width: 1px;
-        border-style: solid;
-        border-color: white;
-        color: white;
-        background-color: black;
-        padding: 5px 10px;
-      }
-
-      .settings .options-button.bool {
-        width: 50px;
-      }
-
-      .settings .options-button.true {
-        color: lightgreen;
-        border-color: lightgreen;
-      }
-
-      .settings .options-button.false {
-        color: red;
-        border-color: red;
-      }
-
-      .sources {
-        border-top: 1px solid gray;
-      }
-
-      #source-list th {
-        text-align: center;
-        border-bottom: 1px solid gray;
-        transition: 0.5s;
-      }
-
-      #source-list th.hover {
-        box-shadow: inset 0 0 30px #00f, 0 0 30px #00f;
-      }
-
-      #source-list th.active {
-        box-shadow: inset 0 0 30px rgb(226, 51, 51), 0 0 30px rgb(226, 51, 51);
-      }
-
-      #source-list td {
-        vertical-align: top;
-      }
-
-      #source-list td a {
-        color: rgb(90, 90, 190);
-        transition: 0.5s;
-        text-decoration: none;
-      }
-
-      #source-list td a:hover {
-        color:rgb(58, 58, 248);
-      }
-
-      #source-list td a.sourceButton.active {
-        color:rgb(226, 51, 51);
-      }
-
-      #source-list td a.sourceButton.active:before {
-        content: '▶';
-        display: inline-block;
-        margin-right: 5px;
-      }
-    </style>
+    <link href="index.css" rel="stylesheet">
 </head>
 <body>
 
   <h5 class="nav">
     <ul>
-      <li><div>Max Quality Selector <span id="pluginVer"></span></div></li>
+      <li><a href="https://github.com/FoxCouncil/videojs-max-quality-selector" target="_blank" class="text">Max Quality Selector <span id="pluginVer"></span></a></li>
       <li><a href="/test/debug.html">Tests</a></li>
       <li><a href="docs/api/">Docs</a></li>
-      <li><div><small>VideoJS <span id="videojsVer"></span> - Contrib <span id="qlVer"></span></small></div></li>
+      <li><a href="https://github.com/videojs/video.js" target="_blank" class="text">VideoJS <span id="videojsVer"></span></a></li>
+      <li><a href="https://github.com/videojs/videojs-contrib-quality-levels" target="_blank" class="text">Contrib <span id="qlVer"></span></a></li>
     </ul>
     <div style="clear: both;"></div>
   </h5>
@@ -163,15 +29,21 @@
   <video id="videojs-max-quality-selector-player" crossorigin="anonymous" class="video-js vjs-default-skin" controls autoplay></video>
 
   <div class="settings">
-    <table id="control-list" width="100%">
+    <table id="control-list" width="50%">
       <tr>
-        <td>sortEnabled: <button class="options-button bool true" data-type="bool" data-name="sortEnabled">true</button></td>
-        <td>filterDuplicates: <button class="options-button bool true" data-type="bool" data-name="filterDuplicates">true</button></td>
-        <td>showBitrates: <button class="options-button bool false"  data-type="bool" data-name="showBitrates">false</button></td>
-
-        <td width="50%"><pre id="output">{}</pre></td>
+        <td class="option">sortEnabled: <button class="options-button bool true" data-type="bool" data-name="sortEnabled">true</button></td>
+        <td class="option">sort: <button class="options-button enum" data-type="enum" data-name="sort" data-enum='["desc", "asc"]'>desc</button></td>
+      </tr>
+      <tr>
+        <td class="option">showBitrates: <button class="options-button bool false"  data-type="bool" data-name="showBitrates">false</button></td>
+        <td class="option">showSingleItemMenu: <button class="options-button bool false"  data-type="bool" data-name="showSingleItemMenu">false</button></td>
+      </tr>
+      <tr>
+        <td class="option">filterDuplicates: <button class="options-button bool true" data-type="bool" data-name="filterDuplicates">true</button></td>
+        <td class="option">displayMode: <button class="options-button enum" data-type="enum" data-name="displayMode" data-enum='["both", "resolution", "name"]'>both</button></td>
       </tr>
     </table>
+    <pre id="output">{}</pre>
   </div>
 
   <div class="sources">
@@ -193,163 +65,9 @@
     </table>
   </div>
 
-  <script src="node_modules/video.js/dist/video.js"></script>
-  <script src="node_modules/videojs-contrib-quality-levels/dist/videojs-contrib-quality-levels.js"></script>
-  <script src="dist/videojs-max-quality-selector.js"></script>
-  <script id="testConfig" type="application/json">
-  {
-    "urls": {
-        "progressive": [
-          {
-            "name": "videojs (MP4, webM)",
-            "sources": [
-              { "src": "http://vjs.zencdn.net/v/oceans.mp4", "type": "video/mp4" },
-              { "src": "http://vjs.zencdn.net/v/oceans.webm","type": "video/webm" }
-            ]
-          }
-        ],
-        "adaptive": [
-          { "name": "HLS Skate Phantom 4k", "sources": [ { "src": "http://sample.vodobox.com/skate_phantom_flex_4k/skate_phantom_flex_4k.m3u8", "type": "application/vnd.apple.mpegurl" } ] },
-          { "name": "HLS Pipe Dream Tahiti", "sources": [ { "src": "http://sample.vodobox.com/pipe_dream_tahiti/pipe_dream_tahiti.m3u8", "type": "application/vnd.apple.mpegurl" } ] },
-          { "name": "HLS We Are Blood 4k", "sources": [ { "src": "http://sample.vodobox.com/we_are_blood_4k/we_are_blood_4k.m3u8", "type": "application/vnd.apple.mpegurl" } ] },
-          { "name": "HLS Caminande 2k", "sources": [ { "src": "http://sample.vodobox.com/caminandes_3_2k/caminandes_3_2k.m3u8", "type": "application/vnd.apple.mpegurl" } ] },
-          { "name": "HLS Caminandes 4k", "sources": [ { "src": "http://sample.vodobox.com/caminandes_1_4k/caminandes_1_4k.m3u8", "type": "application/vnd.apple.mpegurl" } ] },
-          { "name": "HLS Big Buck Bunny", "sources": [ { "src": "http://sample.vodobox.com/big_buck_bunny_4k/big_buck_bunny_4k.m3u8", "type": "application/vnd.apple.mpegurl" } ] },
-          { "name": "HLS Oceans", "sources": [ { "src": "http://playertest.longtailvideo.com/adaptive/oceans_aes/oceans_aes.m3u8", "type": "application/vnd.apple.mpegurl" } ] },
-          { "name": "HLS Playlist", "sources": [ { "src": "http://playertest.longtailvideo.com/adaptive/captions/playlist.m3u8", "type": "application/vnd.apple.mpegurl" } ] },
-          { "name": "HLS Livestream Metadata", "sources": [ { "src": "http://playertest.longtailvideo.com/adaptive/wowzaid3/playlist.m3u8", "type": "application/vnd.apple.mpegurl" } ] },
-          { "name": "HLS Tears of Steel 4k", "sources": [ { "src": "http://content.jwplatform.com/manifests/vM7nH0Kl.m3u8", "type": "application/vnd.apple.mpegurl" } ] },
-          { "name": "HLS Maxwolf", "sources": [ { "src": "http://bigmaxwolf-cact.streaming.media.azure.net/bd250dea-16d4-4d84-9ffe-3c29988fc328/SmellMeat_4k.ism/manifest(format=m3u8-aapl-v3)", "type": "application/vnd.apple.mpegurl" } ] }
-        ],
-        "live": [
-          { "name": "HLS NASA", "sources": [ { "src": "http://iphone-streaming.ustream.tv/uhls/6540154/streams/live/iphone/playlist.m3u8", "type": "application/vnd.apple.mpegurl" } ] },
-          { "name": "HLS NASA Media", "sources": [ { "src": "http://iphone-streaming.ustream.tv/uhls/10414700/streams/live/iphone/playlist.m3u8", "type": "application/vnd.apple.mpegurl" } ] },
-          { "name": "HLS Canadian Shopping Channel", "sources": [ { "src": "http://tscstreaming-lh.akamaihd.net/i/TSCLiveStreaming_1@91031/master.m3u8", "type": "application/vnd.apple.mpegurl" } ] },
-          { "name": "HLS C-SPAN", "sources": [ { "src": "https://skystreams-lh.akamaihd.net/i/SkyC1_1@500806/master.m3u8", "type": "application/vnd.apple.mpegurl" } ] },
-          { "name": "HLS Bloomberg US", "sources": [ { "src": "https://liveproduseast.global.ssl.fastly.net/btv/desktop/us_live.m3u8", "type": "application/vnd.apple.mpegurl" } ] },
-          { "name": "HLS TWiT", "sources": [ { "src": "http://iphone-streaming.ustream.tv/uhls/1524/streams/live/iphone/playlist.m3u8", "type": "application/vnd.apple.mpegurl" } ] },
-          { "name": "HLS CBS News", "sources": [ { "src": "https://cbsn-us-cedexis.cbsnstream.cbsnews.com/out/v1/55a8648e8f134e82a470f83d562deeca/master.m3u8?iu=/8264/vaw-can/desktop/cbsnews", "type": "application/vnd.apple.mpegurl" } ] },
-          { "name": "HLS ABC News", "sources": [ { "src": "https://content.uplynk.com/channel/3324f2467c414329b3b0cc5cd987b6be.m3u8", "type": "application/vnd.apple.mpegurl" } ] },
-          { "name": "HLS RT", "sources": [ { "src": "https://rt-news.secure.footprint.net/1103.m3u8", "type": "application/vnd.apple.mpegurl" } ] },
-          { "name": "HLS RT America", "sources": [ { "src": "https://rt-usa.secure.footprint.net/1105.m3u8", "type": "application/vnd.apple.mpegurl" } ] },
-          { "name": "HLS CGTN", "sources": [ { "src": "https://news.cgtn.com/resource/live/english/cgtn-news.m3u8", "type": "application/vnd.apple.mpegurl" } ] },
-          { "name": "HLS NDTV", "sources": [ { "src": "https://ndtv24x7elemarchana.akamaized.net/hls/live/2003678/ndtv24x7/ndtv24x7master.m3u8", "type": "application/vnd.apple.mpegurl" } ] }
-        ]
-    }
-  }
-  </script>
-  <script>
-    function mouseEffect(s, e) {
-      let header = document.getElementById('source-list').tHead.rows[0].cells[e.cellIndex];
-      if (s) { header.classList.add('hover'); } else { header.classList.remove('hover'); }
-    }
-
-    function handleOptions(event) {
-      let type = this.dataset['type'];
-      let name = this.dataset['name'];
-
-      if (type === 'bool') {
-        let currentValue = this.innerText === 'true' ? true : false;
-        let newValue = !currentValue;
-        this.classList.remove(currentValue.toString());
-        this.classList.add(newValue.toString());
-        this.innerText = newValue.toString();
-        window.maxQualitySelector.options[name] = newValue;
-        window.maxQualitySelector.update();
-      } else {
-        console.log(type, name);
-      }
-    }
-
-    function changeSource() {
-      let selectedEl = undefined;
-      if (this === window) {
-        window.tester.index = 0;
-        selectedEl = document.querySelector('[data-id="0"]');
-      } else {
-        selectedEl = this;
-        window.tester.index = parseInt(selectedEl.dataset["id"]);
-      }
-
-      document.querySelectorAll('.sourceButton').forEach(function(el, idx) {
-        el.classList.remove('active');
-      });
-
-      document.querySelectorAll('#source-list th').forEach(function(el, idx) {
-        el.classList.remove('active');
-      });
-
-      selectedEl.classList.add('active');
-
-      let li = window.tester.sourcesEl[window.tester.index];
-      let cellIdx = li.parentElement.parentElement.cellIndex;
-
-      document.getElementById('source-list').tHead.rows[0].cells[cellIdx].classList.add('active');
-
-      window.player.src(JSON.parse(selectedEl.dataset["urls"]));
-    }
-
-    function createSource(source) {
-      let sourceId = window.tester.sources.length;
-      let newEl = videojs.dom.createEl('li');
-      newEl.appendChild(videojs.dom.createEl('a', { onclick: changeSource }, { 'href': '#', 'class': 'sourceButton', 'data-id': sourceId, 'data-urls': JSON.stringify(source.sources) }, source.name));
-      window.tester.sources.push(source);
-      window.tester.sourcesEl.push(newEl);
-      return newEl;
-    }
-
-    function startTestPage() {
-      const self = window.tester = {};
-
-      const progressiveEl = self.progressiveEl = document.getElementById('progressive');
-      const adaptiveEl = self.adaptiveEl = document.getElementById('adaptive');
-      const liveEl = self.liveEl = document.getElementById('live');
-
-      progressiveEl.innerHTML = adaptiveEl.innerHTML = liveEl.innerHTML = '';
-
-      self.config = JSON.parse(document.getElementById('testConfig').innerText);
-
-      const urls = self.config.urls;
-
-      self.sources = [];
-      self.sourcesEl = [];
-
-      // Progressive
-      urls.progressive.forEach(function(source, index) {
-        let newEl = createSource(source);
-        progressiveEl.appendChild(newEl);
-      });
-
-      // Adaptive
-      urls.adaptive.forEach(function(source, index) {
-        let newEl = createSource(source);
-        adaptiveEl.appendChild(newEl);
-      });
-
-      // Live
-      urls.live.forEach(function(source, index) {
-        let newEl = createSource(source);
-        liveEl.appendChild(newEl);
-      });
-
-      document.querySelectorAll('.options-button').forEach(function(obj, idx) {
-        obj.addEventListener('click', handleOptions.bind(obj));
-      });
-    }
-
-    (function(window, videojs) {
-      startTestPage();
-
-      window.player = videojs('videojs-max-quality-selector-player');
-      window.qualityLevels = window.player.qualityLevels();
-      window.maxQualitySelector = window.player.maxQualitySelector();
-
-      document.getElementById('videojsVer').innerText = videojs.VERSION;
-      document.getElementById('pluginVer').innerText = window.maxQualitySelector.__proto__.constructor.VERSION;
-      document.getElementById('qlVer').innerText = window.player.qualityLevels.VERSION;
-
-      changeSource();
-    }(window, window.videojs));
-  </script>
+  <script src="node_modules/video.js/dist/video.js" defer></script>
+  <script src="node_modules/videojs-contrib-quality-levels/dist/videojs-contrib-quality-levels.js" defer></script>
+  <script src="dist/videojs-max-quality-selector.js" defer></script>
+  <script src="index.js" defer></script>
 </body>
 </html>

@@ -7,7 +7,13 @@ const Plugin = videojs.getPlugin('plugin');
 // Default options for the plugin.
 const defaults = {
   index: -1,
+  autoMode: true,
+  displayMode: 0,
+  minHeight: 0,
+  maxHeight: 0,
+  levels: [],
   filterDuplicates: true,
+  showSingleItemMenu: false,
   showBitrates: false,
   sortEnabled: true,
   sort: 0
@@ -41,11 +47,8 @@ class MaxQualitySelector extends Plugin {
     this.options = videojs.mergeOptions(defaults, options);
 
     this.qualityLevels = [];
-    this.qualityLevelsIdx = 0;
-    this.qualityLevelFilter = [];
 
     this.player.on('loadstart', this.handleMediaChange.bind(this));
-    this.player.on('loadeddata', this.handleMediaChangeDone.bind(this));
 
     if (this.player.qualityLevels !== undefined) {
       this.qlInternal = this.player.qualityLevels();
@@ -63,17 +66,42 @@ class MaxQualitySelector extends Plugin {
 
   update() {
     const self = this;
-    const selQuality = this.qualityLevels.find(function(level) {
-      return level.idx === self.selectedIndex;
+
+    const enabledLevels = [];
+
+    this.qualityLevels.forEach(function(obj, idx) {
+      obj.isCurrent = false;
+      if (self.qlInternal.levels_[obj.id].enabled) {
+        enabledLevels.push(obj.id);
+      }
     });
 
-    let displayQualityName = this.getQualityDisplayString(selQuality);
+    // console.log(enabledLevels);
 
-    if (displayQualityName === '') {
-      displayQualityName = 'UNKNOWN';
+    this.options.autoMode = enabledLevels.length === this.qualityLevels.length;
+
+    const selQuality = this.qualityLevels.find(function(level) {
+      return level.id === self.selectedIndex;
+    });
+
+    if (selQuality === undefined) {
+      this.button.hide();
+      return;
     }
 
-    this.button.$('.vjs-icon-placeholder').innerHTML = displayQualityName;
+    selQuality.isCurrent = true;
+
+    if (this.options.filterDuplicates) {
+      this.qualityLevels.forEach(function(obj, idx) {
+        if (obj.uniqueId === selQuality.uniqueId) {
+          obj.isCurrent = true;
+        }
+      });
+    }
+
+    this.button.$('.vjs-icon-placeholder').innerHTML = this.getQualityDisplayString(selQuality);
+
+    this.button.show();
 
     let qualityItems = this.qualityLevels;
 
@@ -89,7 +117,7 @@ class MaxQualitySelector extends Plugin {
       }
     } else {
       qualityItems = this.qualityLevels.sort(function(a, b) {
-        return a.idx - b.idx;
+        return a.id - b.id;
       });
     }
 
@@ -98,54 +126,69 @@ class MaxQualitySelector extends Plugin {
   }
 
   changeLevel(levelIndex) {
-    this.qlInternal.selectedIndex_ = levelIndex;
-    this.qlInternal.trigger({ type: 'change', selectedIndex: levelIndex });
+    const self = this;
+
+    if (levelIndex < 0) {
+      this.qlInternal.levels_.forEach(function(obj, idx) {
+        if (self.options.minHeight !== 0 && obj.height >= self.options.minHeight || self.options.maxHeight !== 0 && obj.height <= self.options.maxHeight) {
+          obj.enabled = true;
+        } else {
+          obj.enabled = true;
+        }
+      });
+      this.update();
+      return;
+    }
+    // TODO: support endpoints and same dimensions and different bitrates
+    const selectedQuality = this.qualityLevels.find(x => x.id === levelIndex);
+
+    this.qlInternal.levels_.forEach(function(obj, idx) {
+      const qual = self.qualityLevels.find(x => x.id === idx);
+
+      if (qual !== undefined) {
+        obj.enabled = idx === levelIndex || (self.options.filterDuplicates && qual.uniqueId === selectedQuality.uniqueId);
+      }
+    });
+    if (this.options.autoMode) {
+      this.update();
+    }
   }
 
   handleMediaChange(e) {
     this.qualityLevels = [];
-    this.qualityLevelsIdx = 0;
-    this.qualityLevelFilter = [];
-  }
-
-  handleMediaChangeDone(e) {
-    this.update();
   }
 
   handleChange(e) {
-    if (this.selectedIndex !== e.selectedIndex) {
-      this.qlInternal.levels_.forEach(function(obj, idx) {
-        obj.enabled = idx === e.selectedIndex;
-      });
-    }
+    // console.log(`Handling quality change: ${e.selectedIndex}`);
     this.selectedIndex = e.selectedIndex;
     this.update();
   }
 
   handleQualityLevel(e) {
     const ql = e.qualityLevel;
-    const qlUniqueId = ql.width + ql.height + ql.bitrate;
-    let isUnique = true;
 
-    if (this.qualityLevelFilter.includes(qlUniqueId)) {
-      isUnique = false;
-    } else {
-      this.qualityLevelFilter.push(qlUniqueId);
+    if (ql.width === undefined || ql.height === undefined || ql.bitrate === undefined) {
+      return;
     }
 
+    if (this.options.minHeight !== 0 && ql.height < this.options.minHeight || this.options.maxHeight !== 0 && ql.height > this.options.maxHeight) {
+      ql.enabled = false;
+      return;
+    }
+
+    const uniqueId = ql.width + ql.height + ql.bitrate;
+
     const quality = {
-      idx: this.qualityLevelsIdx++,
-      id: ql.id,
-      uniqueId: qlUniqueId,
-      isUnique,
-      label: ql.label,
+      id: this.qlInternal.levels_.indexOf(ql),
+      uniqueId,
       width: ql.width,
       height: ql.height,
       dimension: ql.width + 'x' + ql.height,
       dimensionEnglishName: this.getDimensionEnglishName(ql.width, ql.height),
       dimensionMarketingName: this.getDimensionMarketingName(ql.width, ql.height),
       bitrate: ql.bitrate,
-      bitrateName: this.getReadableFileSizeString(ql.bitrate)
+      bitrateName: this.getReadableFileSizeString(ql.bitrate),
+      isCurrent: false
     };
 
     this.qualityLevels.push(quality);
@@ -153,6 +196,10 @@ class MaxQualitySelector extends Plugin {
 
   getDimensionEnglishName(width, height) {
     switch (height) {
+    case 108:
+    case 180:
+    case 144:
+    case 234:
     case 240:
     case 252:
       return 'VLQ';
@@ -160,6 +207,7 @@ class MaxQualitySelector extends Plugin {
       return 'LQ';
     case 480:
     case 486:
+    case 540:
       return 'SD';
     case 720:
       return 'HD';
@@ -168,6 +216,7 @@ class MaxQualitySelector extends Plugin {
     case 1440:
       return 'QHD';
     case 2160:
+    case 2304:
       return 'UHD';
     }
     return 'N/A';
@@ -177,6 +226,8 @@ class MaxQualitySelector extends Plugin {
     switch (height) {
     case 2160:
       return '4k';
+    case 2304:
+      return 'True 4k';
     }
     return height + 'p';
   }
@@ -200,11 +251,24 @@ class MaxQualitySelector extends Plugin {
       return '';
     }
 
-    let displayString = qualityLevel.dimensionMarketingName + '<sup>' + qualityLevel.dimensionEnglishName + '</sup>';
+    let displayString = '';
+
+    if (this.options.displayMode === 1) {
+      displayString = qualityLevel.dimensionMarketingName;
+    } else if (this.options.displayMode === 2) {
+      displayString = qualityLevel.dimensionEnglishName;
+    } else {
+      displayString = qualityLevel.dimensionMarketingName + '<sup>' + qualityLevel.dimensionEnglishName + '</sup>';
+    }
+
+    if (this.options.autoMode && qualityLevel.isCurrent) {
+      displayString = `Auto(${displayString})`;
+    }
 
     if (this.options.showBitrates) {
       displayString += ' (' + qualityLevel.bitrateName + ')';
     }
+
     return displayString;
   }
 }

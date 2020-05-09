@@ -31,39 +31,64 @@ class QualityButton extends MenuButton {
     this.addClass('vjs-max-quality-selector-button');
   }
 
-  /**
-  * Toggle the subtitle track on and off upon click
-  */
   handleMenuItemClick(e) {
     const selectedIndex = parseInt(e.currentTarget.dataset.id, 10);
 
     this.parent.changeLevel(selectedIndex);
   }
 
+  handleSubmenuKeyPress(e) {
+    if (e.currentTarget.dataset.id === undefined) {
+      return;
+    }
+
+    const selectedIndex = parseInt(e.currentTarget.dataset.id, 10);
+
+    this.parent.changeLevel(selectedIndex);
+  }
+
+  createButton(menu, cssClass, text, id) {
+    const buttonEl = Dom.createEl('li', {
+      className: cssClass,
+      innerHTML: text,
+      tabIndex: -1
+    }, {
+      'data-id': id
+    });
+
+    const menuItem = new MenuItem(this.player_, { el: buttonEl });
+
+    menuItem.on('click', this.handleMenuItemClick.bind(this));
+
+    menu.addItem(menuItem);
+  }
+
   createMenu() {
     const menu = new Menu(this.player_, { menuButton: this });
+    const uniqueEntries = [];
 
     if (this.items) {
+      if (!this.parent.options.autoMode) {
+        this.createButton(menu, 'vjs-menu-item', 'Auto', -1);
+      }
       for (let i = 0; i < this.items.length; i++) {
-        const qualItem = this.items[i];
+        const quality = this.items[i];
 
-        if (this.parent.options.filterDuplicates && !qualItem.isUnique) {
+        if (this.parent.options.filterDuplicates && uniqueEntries.includes(quality.uniqueId)) {
           continue;
+        } else {
+          uniqueEntries.push(quality.uniqueId);
         }
 
-        const qualityEl = Dom.createEl('li', {
-          className: 'vjs-menu-item',
-          innerHTML: this.parent.getQualityDisplayString(qualItem),
-          tabIndex: -1
-        }, {
-          'data-id': qualItem.idx
-        });
+        let elClass = 'vjs-menu-item';
 
-        const qualityItemComponent = new MenuItem(this.player_, { el: qualityEl });
+        elClass += quality.isCurrent ? ' vjs-selected' : '';
 
-        qualityItemComponent.on('click', this.handleMenuItemClick.bind(this));
+        this.createButton(menu, elClass, this.parent.getQualityDisplayString(quality), quality.id);
+      }
 
-        menu.addItem(qualityItemComponent);
+      if (!this.parent.options.showSingleItemMenu && menu.children_.length === 1) {
+        return new Menu(this.player_, { menuButton: this });
       }
     }
 
