@@ -1,6 +1,6 @@
 {
   "name": "videojs-max-quality-selector",
-  "version": "0.1.0",
+  "version": "0.9.0",
   "description": "A Videojs Plugin to help you list out resolutions and bit-rates from Live, Adaptive and Progressive streams.",
   "main": "dist/videojs-max-quality-selector.cjs.js",
   "module": "dist/videojs-max-quality-selector.es.js",
@@ -19,7 +19,8 @@
     "clean": "shx rm -rf ./dist ./test/dist",
     "postclean": "shx mkdir -p ./dist ./test/dist",
     "docs": "npm-run-all docs:*",
-    "docs:api": "jsdoc src -g plugins/markdown -r -d docs/api",
+    "docs:clean": "shx rm -rf ./docs",
+    "docs:api": "jsdoc src README.md -c ./scripts/jsdoc.conf.js -t ./scripts/jsdoctmpl -r -d docs/api",
     "docs:toc": "doctoc --notitle README.md",
     "lint": "vjsstandard src/**/*.js",
     "server": "karma start scripts/karma.conf.js --singleRun=false --auto-watch",
@@ -86,7 +87,7 @@
   },
   "devDependencies": {
     "@videojs/generator-helpers": "~1.0.0",
-    "jsdoc": "BrandonOCasey/jsdoc#feat/plugin-from-cli",
+    "jsdoc": "^3.6.4",
     "karma": "^4.0.0",
     "postcss-cli": "^6.0.0",
     "rollup": "^1.10.0",

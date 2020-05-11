@@ -180,7 +180,14 @@ async function startTestPage() {
 
   window.player = videojs('videojs-max-quality-selector-player');
   window.qualityLevels = window.player.qualityLevels();
-  window.maxQualitySelector = window.player.maxQualitySelector();
+  window.maxQualitySelector = window.player.maxQualitySelector({
+    /*labels: [ 'High', 'Low' ] -or- {
+      0: 'High',
+      8: 'Medium',
+      16: 'Low',
+      24: 'Super Low'
+    }*/
+  });
 
   document.getElementById('videojsVer').innerText = videojs.VERSION;
   document.getElementById('pluginVer').innerText = window.maxQualitySelector.__proto__.constructor.VERSION;

@@ -10,7 +10,7 @@ const defaults = {
   parent: null
 };
 
-class QualityButton extends MenuButton {
+class MaxQualityButton extends MenuButton {
 
   /**
    * QualityButton constructor
@@ -66,11 +66,13 @@ class QualityButton extends MenuButton {
   createMenu() {
     const menu = new Menu(this.player_, { menuButton: this });
     const uniqueEntries = [];
+    const uniqueHeights = [];
 
     if (this.items) {
-      if (!this.parent.options.autoMode) {
-        this.createButton(menu, 'vjs-menu-item', 'Auto', -1);
+      if (!this.parent.autoMode && !this.parent.options.disableAuto) {
+        this.createButton(menu, 'vjs-menu-item', this.parent.options.autoLabel, -1);
       }
+
       for (let i = 0; i < this.items.length; i++) {
         const quality = this.items[i];
 
@@ -78,6 +80,12 @@ class QualityButton extends MenuButton {
           continue;
         } else {
           uniqueEntries.push(quality.uniqueId);
+        }
+
+        if (this.parent.options.filterDuplicateHeights && uniqueHeights.includes(quality.height)) {
+          continue;
+        } else {
+          uniqueHeights.push(quality.height);
         }
 
         let elClass = 'vjs-menu-item';
@@ -96,6 +104,6 @@ class QualityButton extends MenuButton {
   }
 }
 
-videojs.registerComponent('QualityButton', QualityButton);
+videojs.registerComponent('MaxQualityButton', MaxQualityButton);
 
-export default QualityButton;
+export default MaxQualityButton;
