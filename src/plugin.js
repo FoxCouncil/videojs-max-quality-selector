@@ -16,7 +16,7 @@ const defaults = {
    * @example
    * var player = videojs('my-video');
    * player.maxQualitySelector({
-   *   "index": -2 // Put the button before the closed-captioning button.
+   *   'index': -2 // Put the button before the closed-captioning button.
    * });
    *
    * @member {number}
@@ -30,7 +30,7 @@ const defaults = {
    * @example
    * var player = videojs('my-video');
    * player.maxQualitySelector({
-   *   "autoLabel": 'ABR' // Change the label from 'Auto' (default) to 'ABR'.
+   *   'autoLabel': 'ABR' // Change the label from 'Auto' (default) to 'ABR'.
    * });
    *
    * @member {string}
@@ -48,7 +48,7 @@ const defaults = {
    * @example
    * var player = videojs('my-video');
    * player.maxQualitySelector({
-   *   "defaultQuality": 2 // Make the video start playing at the highest quality possible
+   *   'defaultQuality': 2 // Make the video start playing at the highest quality possible
    * });
    *
    * @member {number}
@@ -67,7 +67,7 @@ const defaults = {
    * @example
    * var player = videojs('my-video');
    * player.maxQualitySelector({
-   *   "displayMode": 1 // Only render out the height of the video
+   *   'displayMode': 1 // Only render out the height name of the video in the quality button and list
    * });
    *
    * @member {number}
@@ -81,7 +81,7 @@ const defaults = {
    * @example
    * var player = videojs('my-video');
    * player.maxQualitySelector({
-   *   "minHeight": 480 // Do not list any resolutions smaller than 480p.
+   *   'minHeight': 480 // Do not list any resolutions smaller than 480p.
    * });
    *
    * @member {number}
@@ -95,7 +95,7 @@ const defaults = {
    * @example
    * var player = videojs('my-video');
    * player.maxQualitySelector({
-   *   "maxHeight": 1080 // Do not list any resolutions larger than 1080p.
+   *   'maxHeight': 1080 // Do not list any resolutions larger than 1080p.
    * });
    *
    * @member {number}
@@ -118,7 +118,7 @@ const defaults = {
    * var labelsObject =  { 0: 'High', 8: 'Medium', 16: 'Low', 24: 'Super Low' };
    *
    * player.maxQualitySelector({
-   *   "labels": labelsArray | labelsObject
+   *   'labels': labelsArray | labelsObject
    * });
    *
    * @member {Array|Object}
@@ -132,7 +132,7 @@ const defaults = {
    * @example
    * var player = videojs('my-video');
    * player.maxQualitySelector({
-   *   "disableAuto": true // Turn off the auto bitrate selection system
+   *   'disableAuto': true // Turn off the auto bitrate selection system
    * });
    *
    * @member {boolean}
@@ -148,7 +148,7 @@ const defaults = {
    * @example
    * var player = videojs('my-video');
    * player.maxQualitySelector({
-   *   "filterDuplicates": false // Turn off filtering of duplicate quality levels
+   *   'filterDuplicates': false // Turn off filtering of duplicate quality levels
    * });
    *
    * @member {boolean}
@@ -164,7 +164,7 @@ const defaults = {
    * @example
    * var player = videojs('my-video');
    * player.maxQualitySelector({
-   *   "filterDuplicateHeights": false // Turn off filtering of duplicate quality levels with different bitrates
+   *   'filterDuplicateHeights': false // Turn off filtering of duplicate quality levels with different bitrates
    * });
    *
    * @member {boolean}
@@ -178,7 +178,7 @@ const defaults = {
    * @example
    * var player = videojs('my-video');
    * player.maxQualitySelector({
-   *   "showSingleItemMenu": true // Turn off hidding menu if there is only one quality level.
+   *   'showSingleItemMenu': true // Turn off hidding menu if there is only one quality level.
    * });
    *
    * @member {boolean}
@@ -192,7 +192,7 @@ const defaults = {
    * @example
    * var player = videojs('my-video');
    * player.maxQualitySelector({
-   *   "showBitrates": true // Turn on showing bitrates in the button and menu.
+   *   'showBitrates': true // Turn on showing bitrates in the button and menu.
    * });
    *
    * @member {boolean}
@@ -206,7 +206,7 @@ const defaults = {
    * @example
    * var player = videojs('my-video');
    * player.maxQualitySelector({
-   *   "sortEnabled": false // List the quality levels as they have been specified.
+   *   'sortEnabled': false // List the quality levels as they have been specified.
    * });
    *
    * @member {boolean}
@@ -223,7 +223,7 @@ const defaults = {
    * @example
    * var player = videojs('my-video');
    * player.maxQualitySelector({
-   *   "sort": 1 // List the qualities from lowest to highest top down.
+   *   'sort': 1 // List the qualities from lowest to highest top down.
    * });
    *
    * @member {number}

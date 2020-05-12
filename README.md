@@ -4,12 +4,9 @@
 
 A Videojs Plugin to help you list out resolutions and bit-rates from Live, Adaptive and Progressive streams.
 
-![Screenshot1](https://i.imgur.com/ZB8R2JK.png)
-![Screenshot2](https://i.imgur.com/MachweD.png)
+![Screenshot1](https://i.imgur.com/ZB8R2JK.png) ![Screenshot2](https://i.imgur.com/MachweD.png)
 
 ## Table of Contents
-
----
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
@@ -35,21 +32,19 @@ A Videojs Plugin to help you list out resolutions and bit-rates from Live, Adapt
   - [`<link>` & `<script>` Tag](#link--script-tag)
   - [Browserify/CommonJS](#browserifycommonjs)
   - [RequireJS/AMD](#requirejsamd)
-- [Content Delivery Network (`CDN`)](#content-delivery-network-cdn)
+- [Content Delivery Network `CDN`](#content-delivery-network-cdn)
+- [Contributing](#contributing)
+  - [Code of Conduct](#code-of-conduct)
 - [License](#license)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 ## Installation
-
----
 
 ```sh
 npm install --save videojs-max-quality-selector
 ```
 
 ## Options
-
----
 
 ### autoLabel `:string`
 
@@ -60,7 +55,7 @@ This option lets you rename the string value that represents the auto bitrate se
 ```js
 var player = videojs('my-video');
 player.maxQualitySelector({
-  "autoLabel": 'ABR' // Change the label from 'Auto' (default) to 'ABR'.
+  'autoLabel': 'ABR' // Change the label from 'Auto' (default) to 'ABR'.
 });
 ```
 
@@ -75,7 +70,7 @@ This option lets you control which level of quality is selected first.
 ```js
 var player = videojs('my-video');
 player.maxQualitySelector({
-  "defaultQuality": 2 // Make the video start playing at the highest quality possible
+  'defaultQuality': 2 // Make the video start playing at the highest quality possible
 });
 ```
 
@@ -88,7 +83,7 @@ This option disables the auto bitrate selection system and focuses on a single q
 ```js
 var player = videojs('my-video');
 player.maxQualitySelector({
-  "disableAuto": true // Turn off the auto bitrate selection system
+  'disableAuto': true // Turn off the auto bitrate selection system
 });
 ```
 
@@ -105,7 +100,7 @@ This option lets you control how the default quality level is displayed to the s
 ```js
 var player = videojs('my-video');
 player.maxQualitySelector({
-  "disableAuto": true // Turn off the auto bitrate selection system
+  'displayMode': 1 // Only render out the height name of the video in the quality button and list
 });
 ```
 
@@ -120,7 +115,7 @@ This option enabled the filtering of duplicate quality levels when their height 
 ```js
 var player = videojs('my-video');
 player.maxQualitySelector({
-  "filterDuplicateHeights": false // Turn off filtering of duplicate quality levels with different bitrates
+  'filterDuplicateHeights': false // Turn off filtering of duplicate quality levels with different bitrates
 });
 ```
 
@@ -135,7 +130,7 @@ This option enabled the filtering of duplicate quality levels when their width, 
 ```js
 var player = videojs('my-video');
 player.maxQualitySelector({
-  "filterDuplicateHeights": false // Turn off filtering of duplicate quality levels with different bitrates
+  'filterDuplicates': false // Turn off filtering of duplicate quality levels
 });
 ```
 
@@ -148,7 +143,7 @@ This option helps you position the button in the VideoJS control bar.
 ```js
 var player = videojs('my-video');
 player.maxQualitySelector({
-  "index": -2 // Put the button before the closed-captioning button.
+  'index': -2 // Put the button before the closed-captioning button.
 });
 ```
 
@@ -170,7 +165,7 @@ var labelsArray = [ 'High', 'Low' ];
 var labelsObject =  { 0: 'High', 8: 'Medium', 16: 'Low', 24: 'Super Low' };
 
 player.maxQualitySelector({
-  "labels": labelsArray | labelsObject
+  'labels': labelsArray | labelsObject
 });
 ```
 
@@ -183,7 +178,7 @@ This options lets you specify the maximum height resolution to show in the menu.
 ```js
 var player = videojs('my-video');
 player.maxQualitySelector({
-  "maxHeight": 1080 // Do not list any resolutions larger than 1080p.
+  'maxHeight': 1080 // Do not list any resolutions larger than 1080p.
 });
 ```
 
@@ -196,7 +191,7 @@ This options lets you specify the minimum height resolution to show in the menu.
 ```js
 var player = videojs('my-video');
 player.maxQualitySelector({
-  "minHeight": 480 // Do not list any resolutions smaller than 480p.
+  'minHeight': 480 // Do not list any resolutions smaller than 480p.
 });
 ```
 
@@ -209,7 +204,7 @@ This option enables showing the bitrate in the button and menu.
 ```js
 var player = videojs('my-video');
 player.maxQualitySelector({
-  "showBitrates": true // Turn on showing bitrates in the button and menu.
+  'showBitrates': true // Turn on showing bitrates in the button and menu.
 });
 ```
 
@@ -222,7 +217,7 @@ This option enabled to show the menu even if there is only one quality level.
 ```js
 var player = videojs('my-video');
 player.maxQualitySelector({
-  "showSingleItemMenu": true // Turn off hidding menu if there is only one quality level.
+  'showSingleItemMenu': true // Turn off hidding menu if there is only one quality level.
 });
 ```
 
@@ -237,7 +232,7 @@ This option enables sorting direction the quality levels in the menu.
 ```js
 var player = videojs('my-video');
 player.maxQualitySelector({
-  "sort": 1 // List the qualities from lowest to highest top down.
+  'sort': 1 // List the qualities from lowest to highest top down.
 });
 ```
 
@@ -250,13 +245,14 @@ This option enables sorting the quality levels in the menu.
 ```js
 var player = videojs('my-video');
 player.maxQualitySelector({
-  "sortEnabled": false // List the quality levels as they have been specified.
+  'sortEnabled': false // List the quality levels as they have been specified.
 });
 ```
 
 ## Usage
 
----
+> ⚠ Warning: ⚠
+ We require the https://github.com/videojs/videojs-contrib-quality-levels plugin to be included before ours.
 
 To include videojs-max-quality-selector on your website or web application, use any of the following methods.
 
@@ -270,6 +266,7 @@ This is the simplest case. Get the script in whatever way you prefer and include
 
 ```html
 <script src="//path/to/video.min.js"></script>
+<script src="//path/to/videojs-contrib-quality-levels.min.js"></script>
 <script src="//path/to/videojs-max-quality-selector.min.js"></script>
 <script>
   var player = videojs('my-video');
@@ -288,6 +285,7 @@ var videojs = require('video.js');
 // The actual plugin function is exported by this module, but it is also
 // attached to the `Player.prototype`; so, there is no need to assign it
 // to a variable.
+require('videojs-contrib-quality-levels');
 require('videojs-max-quality-selector');
 
 var player = videojs('my-video');
@@ -300,23 +298,31 @@ player.maxQualitySelector();
 When using with RequireJS (or another AMD library), get the script in whatever way you prefer and `require` the plugin as you normally would:
 
 ```js
-require(['video.js', 'videojs-max-quality-selector'], function(videojs) {
+require(['video.js', 'videojs-contrib-quality-levels', 'videojs-max-quality-selector'], function(videojs) {
   var player = videojs('my-video');
 
   player.maxQualitySelector();
 });
 ```
 
-## Content Delivery Network (`CDN`)
-
----
+## Content Delivery Network `CDN`
 
 >We're using [unpkg](https://unpkg.com/) to serve our files.
->https://unpkg.com/videojs-max-quality-selector/
+>
+> File Explorer: https://unpkg.com/videojs-max-quality-selector/
+>
+> Latest:
+https://unpkg.com/videojs-max-quality-selector/dist/videojs-max-quality-selector.css
+https://unpkg.com/videojs-max-quality-selector/dist/videojs-max-quality-selector.min.js
 
+## Contributing
+
+We welcome contributions from everyone! [Find out how to contribute...](CONTRIBUTING.md)
+
+### Code of Conduct
+
+[Contributor Covenant Code of Conduct](CONDUCT.md)
 
 ## License
-
----
 
 MIT. Copyright (c) Fox (onefox@gmail.com)

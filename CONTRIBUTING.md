@@ -2,6 +2,10 @@
 
 We welcome contributions from everyone!
 
+## Code of Conduct
+
+Please read our [Contributor Covenant Code of Conduct](CONDUCT.md) before continuing.
+
 ## Getting Started
 
 Make sure you have Node.js 8 or higher and npm installed.
@@ -12,7 +16,7 @@ Make sure you have Node.js 8 or higher and npm installed.
 
 ### Making Changes
 
-Refer to the [video.js plugin conventions][conventions] for more detail on best practices and tooling for video.js plugin authorship.
+Refer to the [video.js plugin conventions][conventions] for more detail on best practices and tooling for this plugin.
 
 When you've made your changes, push your commit(s) to your fork and issue a pull request against the original repository.
 
