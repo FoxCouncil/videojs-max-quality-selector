@@ -271,7 +271,7 @@ class MaxQualitySelector extends Plugin {
 
       const buttonIndex = this.options.index < 0 ? player.controlBar.children().length + this.options.index : this.options.index;
 
-      this.button = player.controlBar.addChild('MaxQualityButton', { parent: this }, buttonIndex);
+      this.button = player.controlBar.addChild('MaxQualityButton', { parent: this }, +this.options.index);
     }
 
     this.player.ready(() => {
@@ -295,6 +295,10 @@ class MaxQualitySelector extends Plugin {
     });
 
     this.autoMode = enabledLevels.length === this.qualityLevels.length;
+
+    if (!this.qualityLevels.length) {
+      return
+    }
 
     const selQuality = this.qualityLevels.find(function(level) {
       return level.id === self.selectedIndex;
@@ -374,20 +378,18 @@ class MaxQualitySelector extends Plugin {
       return;
     }
 
+
     const selectedQuality = this.qualityLevels.find(x => x.id === levelIndex);
 
     this.qlInternal.levels_.forEach(function(obj, idx) {
       const qual = self.qualityLevels.find(x => x.id === idx);
 
       if (qual !== undefined) {
-        obj.enabled = idx === levelIndex ||
-          (self.options.filterDuplicates && qual.uniqueId === selectedQuality.uniqueId) ||
-          (self.options.filterDuplicateHeights && qual.height === selectedQuality.height);
+        obj.enabled = idx === levelIndex;
       }
     });
-    if (this.autoMode) {
+    this.player.qualityLevels().trigger('change')
       this.update();
-    }
   }
 
   /**
@@ -471,6 +473,7 @@ class MaxQualitySelector extends Plugin {
     };
 
     this.qualityLevels.push(quality);
+    this.update();
   }
 
   /**
