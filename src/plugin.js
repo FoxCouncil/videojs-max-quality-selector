@@ -363,9 +363,10 @@ class MaxQualitySelector extends Plugin {
     const self = this;
 
     if (levelIndex < 0) {
+      // Selecting AUTO
       this.qlInternal.levels_.forEach(function(obj, idx) {
-        if (self.options.minHeight !== 0 && obj.height >= self.options.minHeight || self.options.maxHeight !== 0 && obj.height <= self.options.maxHeight) {
-          obj.enabled = true;
+        if (self.options.minHeight !== 0 && obj.height < self.options.minHeight || self.options.maxHeight !== 0 && obj.height > self.options.maxHeight) {
+          obj.enabled = false;
         } else {
           obj.enabled = true;
         }
