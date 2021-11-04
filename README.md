@@ -2,6 +2,8 @@
 
 ![NPM Publish](https://github.com/FoxCouncil/videojs-max-quality-selector/workflows/NPM%20Publish/badge.svg)
 
+[Test It Out!](https://test.foxcouncil.com/videojs-max-quality-selector/)
+
 A Videojs Plugin to help you list out resolutions and bit-rates from Live, Adaptive and Progressive streams.
 
 ![Screenshot1](https://i.imgur.com/ZB8R2JK.png) ![Screenshot2](https://i.imgur.com/MachweD.png)
