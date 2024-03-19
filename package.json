@@ -29,8 +29,7 @@
     "version": "7.6.3"
   },
   "browserslist": [
-    "defaults",
-    "ie 11"
+    "defaults"
   ],
   "scripts": {
     "prebuild": "npm run clean",
@@ -103,7 +102,7 @@
     "jsdoc": "^3.6.6",
     "karma": "^6.3.2",
     "postcss-cli": "^8.3.1",
-    "rollup": "^2.44.0",
+    "rollup": "^2.79.1",
     "sinon": "^10.0.0",
     "videojs-generate-karma-config": "^8",
     "videojs-generate-postcss-config": "^3",
