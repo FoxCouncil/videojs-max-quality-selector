@@ -24,7 +24,7 @@
           { "name": "HLS Tears of Steel 4k", "sources": [ { "src": "http://content.jwplatform.com/manifests/vM7nH0Kl.m3u8", "type": "application/vnd.apple.mpegurl" } ] }
         ],
         "live": [
-          { "name": "HLS CTV News Channel", "sources": [ { "src": "https://pe-fa-lp02a.9c9media.com/live/News1Digi/p/hls/00000201/38ef78f479b07aa0/index/0c6a10a2/live/stream/h264/v1/3500000/manifest.m3u8", "type": "application/vnd.apple.mpegurl" } ] },
+          { "name": "HLS City News Toronto", "sources": [ { "src": "https://citynewsregional.akamaized.net/hls/live/1024052/Regional_Live_7/master.m3u8", "type": "application/vnd.apple.mpegurl" } ] },
           { "name": "HLS Canadian Shopping Channel", "sources": [ { "src": "https://tscamd.akamaized.net/hls/live/503340/TSCLive/master.m3u8", "type": "application/vnd.apple.mpegurl" } ] },
           { "name": "HLS ICI Montreal", "sources": [ { "src": "https://amdici.akamaized.net/hls/live/873426/ICI-Live-Stream/master.m3u8", "type": "application/vnd.apple.mpegurl" } ] },
           { "name": "HLS bon appetit", "sources": [ { "src": "https://bonappetit-samsung.amagi.tv/playlist.m3u8", "type": "application/vnd.apple.mpegurl" } ] },
