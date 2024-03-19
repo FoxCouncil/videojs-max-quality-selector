@@ -11,6 +11,7 @@
         ],
         "adaptive": [
           { "name": "HLS BipBop 16×9", "sources": [ { "src": "https://d2zihajmogu5jn.cloudfront.net/bipbop-advanced/bipbop_16x9_variant.m3u8", "type": "application/vnd.apple.mpegurl" } ] },
+          { "name": "HLS Folgers", "sources": [ { "src": "http://cdnbakmi.kaltura.com/p/243342/sp/24334200/playManifest/entryId/0_uka1msg4/flavorIds/1_vqhfu6uy,1_80sohj7p/format/applehttp/protocol/http/a.m3u8", "type": "application/vnd.apple.mpegurl" } ] },
           { "name": "HLS Skate Phantom 4k", "sources": [ { "src": "http://sample.vodobox.com/skate_phantom_flex_4k/skate_phantom_flex_4k.m3u8", "type": "application/vnd.apple.mpegurl" } ] },
           { "name": "HLS Pipe Dream Tahiti", "sources": [ { "src": "http://sample.vodobox.com/pipe_dream_tahiti/pipe_dream_tahiti.m3u8", "type": "application/vnd.apple.mpegurl" } ] },
           { "name": "HLS We Are Blood 4k", "sources": [ { "src": "http://sample.vodobox.com/we_are_blood_4k/we_are_blood_4k.m3u8", "type": "application/vnd.apple.mpegurl" } ] },
@@ -23,18 +24,19 @@
           { "name": "HLS Tears of Steel 4k", "sources": [ { "src": "http://content.jwplatform.com/manifests/vM7nH0Kl.m3u8", "type": "application/vnd.apple.mpegurl" } ] }
         ],
         "live": [
-          { "name": "HLS NASA", "sources": [ { "src": "http://iphone-streaming.ustream.tv/uhls/6540154/streams/live/iphone/playlist.m3u8", "type": "application/vnd.apple.mpegurl" } ] },
-          { "name": "HLS NASA Media", "sources": [ { "src": "http://iphone-streaming.ustream.tv/uhls/10414700/streams/live/iphone/playlist.m3u8", "type": "application/vnd.apple.mpegurl" } ] },
-          { "name": "HLS Canadian Shopping Channel", "sources": [ { "src": "http://tscstreaming-lh.akamaihd.net/i/TSCLiveStreaming_1@91031/master.m3u8", "type": "application/vnd.apple.mpegurl" } ] },
-          { "name": "HLS C-SPAN", "sources": [ { "src": "https://skystreams-lh.akamaihd.net/i/SkyC1_1@500806/master.m3u8", "type": "application/vnd.apple.mpegurl" } ] },
-          { "name": "HLS Bloomberg US", "sources": [ { "src": "https://liveproduseast.global.ssl.fastly.net/btv/desktop/us_live.m3u8", "type": "application/vnd.apple.mpegurl" } ] },
-          { "name": "HLS TWiT", "sources": [ { "src": "http://iphone-streaming.ustream.tv/uhls/1524/streams/live/iphone/playlist.m3u8", "type": "application/vnd.apple.mpegurl" } ] },
-          { "name": "HLS CBS News", "sources": [ { "src": "https://cbsn-us-cedexis.cbsnstream.cbsnews.com/out/v1/55a8648e8f134e82a470f83d562deeca/master.m3u8?iu=/8264/vaw-can/desktop/cbsnews", "type": "application/vnd.apple.mpegurl" } ] },
+          { "name": "HLS CTV News Channel", "sources": [ { "src": "https://pe-fa-lp02a.9c9media.com/live/News1Digi/p/hls/00000201/38ef78f479b07aa0/index/0c6a10a2/live/stream/h264/v1/3500000/manifest.m3u8", "type": "application/vnd.apple.mpegurl" } ] },
+          { "name": "HLS Canadian Shopping Channel", "sources": [ { "src": "https://tscamd.akamaized.net/hls/live/503340/TSCLive/master.m3u8", "type": "application/vnd.apple.mpegurl" } ] },
+          { "name": "HLS ICI Montreal", "sources": [ { "src": "https://amdici.akamaized.net/hls/live/873426/ICI-Live-Stream/master.m3u8", "type": "application/vnd.apple.mpegurl" } ] },
+          { "name": "HLS bon appetit", "sources": [ { "src": "https://bonappetit-samsung.amagi.tv/playlist.m3u8", "type": "application/vnd.apple.mpegurl" } ] },
+          { "name": "HLS CPAC", "sources": [ { "src": "https://d7z3qjdsxbwoq.cloudfront.net/groupa/live/f9809cea-1e07-47cd-a94d-2ddd3e1351db/live.isml/.m3u8", "type": "application/vnd.apple.mpegurl" } ] },
+          { "name": "HLS Bloomberg US", "sources": [ { "src": "https://bloomberg-bloomberg-1-be.samsung.wurl.tv/playlist.m3u8", "type": "application/vnd.apple.mpegurl" } ] },
+          { "name": "HLS Fox 9 News", "sources": [ { "src": "https://lnc-kmsp.tubi.video/index.m3u8", "type": "application/vnd.apple.mpegurl" } ] },
           { "name": "HLS ABC News", "sources": [ { "src": "https://content.uplynk.com/channel/3324f2467c414329b3b0cc5cd987b6be.m3u8", "type": "application/vnd.apple.mpegurl" } ] },
-          { "name": "HLS RT", "sources": [ { "src": "https://rt-news.secure.footprint.net/1103.m3u8", "type": "application/vnd.apple.mpegurl" } ] },
-          { "name": "HLS RT America", "sources": [ { "src": "https://rt-usa.secure.footprint.net/1105.m3u8", "type": "application/vnd.apple.mpegurl" } ] },
-          { "name": "HLS CGTN", "sources": [ { "src": "https://news.cgtn.com/resource/live/english/cgtn-news.m3u8", "type": "application/vnd.apple.mpegurl" } ] },
-          { "name": "HLS NDTV", "sources": [ { "src": "https://ndtv24x7elemarchana.akamaized.net/hls/live/2003678/ndtv24x7/ndtv24x7master.m3u8", "type": "application/vnd.apple.mpegurl" } ] }
+          { "name": "HLS RetroTV", "sources": [ { "src": "https://2-fss-2.streamhoster.com/pl_118/204972-1954132-1/playlist.m3u8", "type": "application/vnd.apple.mpegurl" } ] },
+          { "name": "HLS Techno", "sources": [ { "src": "https://m2b2.worldcast.tv:7443/dancetelevisionthree/dancetelevisionthree.m3u8", "type": "application/vnd.apple.mpegurl" } ] },
+          { "name": "HLS Tech&CO", "sources": [ { "src": "https://ncdn-live-bfm.pfd.sfr.net/shls/LIVE$BFM_TECHANDCO/index.m3u8?end=END&start=LIVE", "type": "application/vnd.apple.mpegurl" } ] },
+          { "name": "HLS CGNTV Japan", "sources": [ { "src": "https://cgntvliveweb-944.acs.wecandeo.com/ms/2850/944/index.m3u8", "type": "application/vnd.apple.mpegurl" } ] },
+          { "name": "HLS CGTN", "sources": [ { "src": "https://news.cgtn.com/resource/live/english/cgtn-news.m3u8", "type": "application/vnd.apple.mpegurl" } ] }
         ]
     }
   }
