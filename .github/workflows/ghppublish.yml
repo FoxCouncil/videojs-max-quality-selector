@@ -17,7 +17,7 @@ jobs:
       - run: npm run build
       - run: mkdir _site
       - run: cp index.* _site
-      - run: cp dist _site
+      - run: cp -r dist _site
       - run: cp node_modules/video.js/dist/video.js _site/node_modules/video.js/dist/video.js
       - run: cp node_modules/video.js/dist/video-js.css _site/node_modules/video.js/dist/video-js.css
       - uses: actions/upload-pages-artifact@v3.0.1
