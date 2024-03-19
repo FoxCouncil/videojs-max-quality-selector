@@ -4,8 +4,8 @@
           {
             "name": "videojs (MP4, webM)",
             "sources": [
-              { "src": "http://vjs.zencdn.net/v/oceans.mp4", "type": "video/mp4" },
-              { "src": "http://vjs.zencdn.net/v/oceans.webm","type": "video/webm" }
+              { "src": "https://vjs.zencdn.net/v/oceans.mp4", "type": "video/mp4" },
+              { "src": "https://vjs.zencdn.net/v/oceans.webm","type": "video/webm" }
             ]
           }
         ],
