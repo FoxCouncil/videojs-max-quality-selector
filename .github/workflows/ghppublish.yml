@@ -1,0 +1,24 @@
+name: Github Pages CI
+
+on:
+  push:
+    branches: [ "master" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 19
+          registry-url: https://registry.npmjs.org/
+      - run: npm ci
+      - run: npm run build
+      - run: mkdir _site
+      - run: copy index.* _site
+      - run: copy dist _site
+      - run: copy node_modules/video.js/dist/video.js _site/node_modules/video.js/dist/video.js
+      - run: copy node_modules/video.js/dist/video-js.css _site/node_modules/video.js/dist/video-js.css
+      - uses: actions/upload-pages-artifact@v3.0.1
+

@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Changed
 
+## Version 1.0.0
+
+### Fixed
+
+- VideoJS 8 support
+
 ## Version 0.9.1
 
 ### Fixed

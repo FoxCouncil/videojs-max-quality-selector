@@ -251,7 +251,7 @@ class MaxQualitySelector extends Plugin {
    */
   constructor(player, options) {
     // the parent class will add player under this.player
-    super(player);
+    super(player, options);
 
     this.defaults = defaults;
     this.options = videojs.mergeOptions(defaults, options);

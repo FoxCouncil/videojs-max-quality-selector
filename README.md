@@ -254,7 +254,7 @@ player.maxQualitySelector({
 ## Usage
 
 > ⚠ Warning: ⚠
- We require the https://github.com/videojs/videojs-contrib-quality-levels plugin to be included before ours.
+ For versions of VideoJS 7 and below, we require the https://github.com/videojs/videojs-contrib-quality-levels plugin to be included before ours.
 
 To include videojs-max-quality-selector on your website or web application, use any of the following methods.
 
@@ -287,7 +287,6 @@ var videojs = require('video.js');
 // The actual plugin function is exported by this module, but it is also
 // attached to the `Player.prototype`; so, there is no need to assign it
 // to a variable.
-require('videojs-contrib-quality-levels');
 require('videojs-max-quality-selector');
 
 var player = videojs('my-video');
@@ -300,7 +299,7 @@ player.maxQualitySelector();
 When using with RequireJS (or another AMD library), get the script in whatever way you prefer and `require` the plugin as you normally would:
 
 ```js
-require(['video.js', 'videojs-contrib-quality-levels', 'videojs-max-quality-selector'], function(videojs) {
+require(['video.js', 'videojs-max-quality-selector'], function(videojs) {
   var player = videojs('my-video');
 
   player.maxQualitySelector();

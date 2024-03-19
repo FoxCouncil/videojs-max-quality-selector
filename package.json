@@ -1,6 +1,6 @@
 {
   "name": "videojs-max-quality-selector",
-  "version": "0.9.2",
+  "version": "1.0.0",
   "description": "A Videojs Plugin to help you list out resolutions and bit-rates from Live, Adaptive and Progressive streams.",
   "main": "dist/videojs-max-quality-selector.cjs.js",
   "module": "dist/videojs-max-quality-selector.es.js",
@@ -96,8 +96,7 @@
   },
   "dependencies": {
     "global": "^4.4.0",
-    "video.js": "^7",
-    "videojs-contrib-quality-levels": "^2.1.0"
+    "video.js": "^8"
   },
   "devDependencies": {
     "@videojs/generator-helpers": "~2.0.1",
@@ -106,10 +105,10 @@
     "postcss-cli": "^8.3.1",
     "rollup": "^2.44.0",
     "sinon": "^10.0.0",
-    "videojs-generate-karma-config": "~7.1.0",
-    "videojs-generate-postcss-config": "^3.0.0",
-    "videojs-generate-rollup-config": "~6.2.0",
-    "videojs-generator-verify": "~3.0.3",
-    "videojs-standard": "^8.0.4"
+    "videojs-generate-karma-config": "^8",
+    "videojs-generate-postcss-config": "^3",
+    "videojs-generate-rollup-config": "^7",
+    "videojs-generator-verify": "^4",
+    "videojs-standard": "^9"
   }
 }
